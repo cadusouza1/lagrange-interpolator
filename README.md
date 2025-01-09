@@ -23,15 +23,13 @@ much for now
 
 ## Usage
 
-1. Provide the x and y coordinates of the points in the `lagrange-interpolator.py` file.
-2. Run `python lagrange-interpolator.py`
-3. The polynomial will be printed in its expanded form.
+1. Run `python lagrange-interpolator.py x0 y0 x1 y1 ...`
+2. The polynomial will be printed in its expanded form.
 
 ### Example
 
-```python
-x_coordinates = [1, 2, 3, 4]
-y_coordinates = [2, 3, 4, 5]
+```bash
+python lagrange-interpolator.py 1 2 3 4 5 6
 
 # Output: x + 1
 ```
