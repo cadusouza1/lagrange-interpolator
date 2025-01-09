@@ -1,25 +1,16 @@
-from sympy import Expr, Symbol, expand, symbols, sympify
+import sys
 
+from sympy import Expr, expand, symbols, sympify
 
-def lagrange_basis(x_coordinates: list[int], x: Symbol) -> list[Expr]:
-    bases: list[Expr] = []
+from lagrange import lagrange_basis
+from user_input import get_points_from_cmd
 
-    for i in range(0, len(x_coordinates)):
-        basis: Expr = sympify(1)
+x_coordinates, y_coordinates = get_points_from_cmd()
 
-        for j in range(0, len(x_coordinates)):
-            if i != j:
-                numerator = x - sympify(x_coordinates[j])
-                denominator = x_coordinates[i] - x_coordinates[j]
-                basis *= numerator / denominator
+if len(x_coordinates) != len(y_coordinates):
+    print("x and y coordinates must be pairs")
+    sys.exit(1)
 
-        bases.append(basis)
-
-    return bases
-
-
-x_coordinates = [1, 2, 3, 4]
-y_coordinates = [2, 3, 4, 5]
 x = symbols("x")
 
 bases = lagrange_basis(x_coordinates, x)
@@ -28,5 +19,4 @@ polynomial: Expr = sympify(0)
 for y, basis in zip(y_coordinates, bases):
     polynomial += sympify(y) * basis
 
-# print(polynomial)
 print(expand(polynomial))
