@@ -5,11 +5,9 @@ from sympy import Number, sympify
 
 def get_points_from_cmd() -> tuple[list[Number], list[Number]]:
     """
-    Reads x and y coordinates from command-line arguments and returns them as two separate lists.
-
-    The function expects an even number of command-line arguments, where:
-    - The odd-indexed arguments (1st, 3rd, 5th, ...) are treated as x-coordinates.
-    - The even-indexed arguments (2nd, 4th, 6th, ...) are treated as y-coordinates.
+    Reads x and y coordinates from command-line arguments and returns them as two separate lists where:
+    - The even-indexed arguments (0, 2, 4, ...) are treated as x-coordinates.
+    - The odd-indexed arguments (1, 3, 5, ...) are treated as y-coordinates.
 
     Returns:
         tuple[list[Number], list[Number]]: A tuple containing two lists:
