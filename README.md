@@ -2,9 +2,6 @@
 Implementation of Lagrange interpolation to find a polynomial that passes
 through a given set of points (x,y)
 
-This is a really really early implementation of this method, so don't expect
-much for now
-
 ## Requirements
 
 - Python 3.10 or newer
