@@ -13,6 +13,10 @@ def main() -> None:
         print("x and y coordinates must be pairs")
         sys.exit(1)
 
+    if len(x_coordinates) != len(set(x_coordinates)):
+        print("x coordinates must all be different values")
+        sys.exit(1)
+
     x = symbols("x")
 
     bases = lagrange_basis(x_coordinates, x)
