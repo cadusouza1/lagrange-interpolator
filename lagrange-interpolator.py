@@ -5,18 +5,24 @@ from sympy import Expr, expand, symbols, sympify
 from lagrange import lagrange_basis
 from user_input import get_points_from_cmd
 
-x_coordinates, y_coordinates = get_points_from_cmd()
 
-if len(x_coordinates) != len(y_coordinates):
-    print("x and y coordinates must be pairs")
-    sys.exit(1)
+def main() -> None:
+    x_coordinates, y_coordinates = get_points_from_cmd()
 
-x = symbols("x")
+    if len(x_coordinates) != len(y_coordinates):
+        print("x and y coordinates must be pairs")
+        sys.exit(1)
 
-bases = lagrange_basis(x_coordinates, x)
-polynomial: Expr = sympify(0)
+    x = symbols("x")
 
-for y, basis in zip(y_coordinates, bases):
-    polynomial += sympify(y) * basis
+    bases = lagrange_basis(x_coordinates, x)
+    polynomial: Expr = sympify(0)
 
-print(expand(polynomial))
+    for y, basis in zip(y_coordinates, bases):
+        polynomial += sympify(y) * basis
+
+    print(expand(polynomial))
+
+
+if __name__ == "__main__":
+    main()
