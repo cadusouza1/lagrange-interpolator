@@ -1,13 +1,37 @@
+import argparse
 import sys
 
-from sympy import Expr, expand, symbols, sympify
+from sympy import Expr, Number, expand, symbols, sympify
 
 from lagrange import lagrange_basis
-from user_input import get_points_from_cmd
+from user_input import parse_points_from_list
 
 
 def main() -> None:
-    x_coordinates, y_coordinates = get_points_from_cmd()
+    parser = argparse.ArgumentParser(
+        description="A program to calculate the lagrange polynomial for a given set of points"
+    )
+
+    parser.add_argument(
+        "-p",
+        "--points",
+        nargs="+",
+        type=Number,
+        required=True,
+        help="x y pairs to calculate the lagrange polynomial for",
+    )
+
+    parser.add_argument(
+        "-j",
+        "--num-cores",
+        default=1,
+        type=int,
+        help="Number of cores to use for the polynomial calculations",
+    )
+
+    args = parser.parse_args()
+
+    x_coordinates, y_coordinates = parse_points_from_list(args.points)
 
     if len(x_coordinates) != len(y_coordinates):
         print("x and y coordinates must be pairs")
