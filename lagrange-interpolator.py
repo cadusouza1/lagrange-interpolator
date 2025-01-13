@@ -43,7 +43,7 @@ def main() -> None:
 
     x = symbols("x")
 
-    bases = lagrange_basis(x_coordinates, x, 4)
+    bases = lagrange_basis(x_coordinates, x, args.num_cores)
     polynomial: Expr = sympify(0)
 
     for y, basis in zip(y_coordinates, bases):
