@@ -1,7 +1,11 @@
+import multiprocessing
+
 from sympy import Expr, Number, Symbol, sympify
 
 
-def lagrange_basis(x_coordinates: list[Number], x: Symbol) -> list[Expr]:
+def lagrange_basis(
+    x_coordinates: list[Number], x: Symbol, j: int
+) -> list[Expr]:
     """
     Computes the Lagrange basis polynomials for a given set of x-coordinates.
 
@@ -15,17 +19,35 @@ def lagrange_basis(x_coordinates: list[Number], x: Symbol) -> list[Expr]:
                    Each polynomial corresponds to one of the x-coordinates.
     """
 
-    bases: list[Expr] = []
-
-    for i in range(0, len(x_coordinates)):
-        basis: Expr = sympify(1)
-
-        for j in range(0, len(x_coordinates)):
-            if i != j:
-                numerator = x - sympify(x_coordinates[j])
-                denominator = x_coordinates[i] - x_coordinates[j]
-                basis *= numerator / denominator
-
-        bases.append(basis)
+    with multiprocessing.Pool(processes=j) as pool:
+        bases = pool.starmap(
+            lagrange_base_li,
+            [(x_coordinates, x, i) for i in range(0, len(x_coordinates))],
+        )
 
     return bases
+
+
+def lagrange_base_li(
+    x_coordinates: list[Number], x: Symbol, index: int
+) -> Expr:
+    """
+    Computes the Lagrange base polynomial L_i for a given set of x-coordinates.
+
+    Args:
+        x_coordinates (list[Number]): A list of x-coordinates for which the base polynomial is computed.
+        x (Symbol): The symbolic variable used in the basis polynomials.
+
+    Returns:
+        Expr: A symbolic expressions representing the Lagrange base polynomial L_i.
+    """
+
+    base: Expr = sympify(1)
+
+    for j in range(0, len(x_coordinates)):
+        if index != j:
+            numerator = x - sympify(x_coordinates[j])
+            denominator = x_coordinates[index] - x_coordinates[j]
+            base *= numerator / denominator
+
+    return base
