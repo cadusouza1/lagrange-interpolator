@@ -20,13 +20,13 @@ through a given set of points (x,y)
 
 ## Usage
 
-1. Run `python lagrange-interpolator.py x0 y0 x1 y1 ...`
+1. Run `python lagrange-interpolator.py -p x0 y0 x1 y1 ...`
 2. The polynomial will be printed in its expanded form.
 
 ### Example
 
 ```bash
-python lagrange-interpolator.py 1 2 3 4 5 6
+python lagrange-interpolator.py -p 1 2 3 4 5 6
 
 # Output: x + 1
 ```
