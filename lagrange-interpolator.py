@@ -3,6 +3,7 @@ import sys
 
 from sympy import Expr, Number, expand, symbols, sympify
 
+import plot
 from lagrange import lagrange_basis
 from user_input import parse_points_from_list
 
@@ -29,6 +30,8 @@ def main() -> None:
         help="Number of cores to use for the polynomial calculations",
     )
 
+    parser.add_argument("--plot", default=False, action="store_true")
+
     args = parser.parse_args()
 
     x_coordinates, y_coordinates = parse_points_from_list(args.points)
@@ -50,6 +53,9 @@ def main() -> None:
         polynomial += sympify(y) * basis
 
     print(expand(polynomial))
+
+    if args.plot:
+        plot.plot_polynomial(x, polynomial, -10, 10, 1000)
 
 
 if __name__ == "__main__":
