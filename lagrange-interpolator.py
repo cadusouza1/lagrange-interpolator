@@ -30,7 +30,30 @@ def main() -> None:
         help="Number of cores to use for the polynomial calculations",
     )
 
-    parser.add_argument("--plot", default=False, action="store_true")
+    parser.add_argument(
+        "--plot",
+        default=False,
+        action="store_true",
+        help="Plot the lagrange polynomial",
+    )
+
+    parser.add_argument(
+        "--xmin",
+        default=-10,
+        type=int,
+        help="Minimum x value for the lagrange polynomial",
+    )
+
+    parser.add_argument(
+        "--xmax",
+        default=10,
+        type=int,
+        help="Maximum x value for the lagrange polynomial",
+    )
+
+    parser.add_argument(
+        "--num-points", default=100, type=int, help="Number of points to plot"
+    )
 
     args = parser.parse_args()
 
@@ -55,7 +78,9 @@ def main() -> None:
     print(expand(polynomial))
 
     if args.plot:
-        plot.plot_polynomial(x, polynomial, -10, 10, 1000)
+        plot.plot_polynomial(
+            x, polynomial, args.xmin, args.xmax, args.num_points
+        )
 
 
 if __name__ == "__main__":
